@@ -1,0 +1,11 @@
+FROM docker.io/centos
+MAINTAINER vanxd
+RUN yum install -y wget
+ENV LC_ALL en_US.UTF-8
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+# 注意 这个路径需要自己去oracle官网拿到并且放在这里
+ENV JDK_RPM_PATH https://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jdk-8u191-linux-x64.rpm?AuthParam=1544423155_c61d6c90e445b46e65f5bdce359b3e26
+RUN wget $JDK_RPM_PATH -O jdk.rpm
+RUN rpm -i jdk.rpm
+RUN rm -rf jdk.rpm
